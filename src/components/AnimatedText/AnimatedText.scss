@@ -1,0 +1,76 @@
+/* ==========================================================================
+	 Mixins	 ========================================================================== */
+@mixin anim-filter($filter, $value) {
+  -webkit-filter: #{$filter}unquote("(#{$value})");
+  -moz-filter: #{$filter}unquote("(#{$value})");
+  -ms-filter: #{$filter}unquote("(#{$value})");
+  filter: #{$filter}unquote("(#{$value})");
+}
+@mixin anim-transition($property, $value) {
+  -webkit-transition: $property, $value;
+  -moz-transition: $property, $value;
+  -ms-transition: $property, $value;
+  transition: $property, $value;
+}
+@mixin anim-transform($property, $value) {
+  -webkit-transform: #{$property}unquote("(#{$value})");
+  -moz-transform: #{$property}unquote("(#{$value})");
+  -ms-transform: #{$property}unquote("(#{$value})");
+  transform: #{$property}unquote("(#{$value})");
+}
+
+body {
+  background-color: black;
+}
+
+.text-anim {
+  color: #ffffff;
+  font-size: 18px;
+  text-align: left;
+  padding-left: 1em;
+  position: relative;
+  font-family: "Julius Sans One", sans-serif;
+  left: 1em;
+  z-index: 5;
+}
+
+.fleurs {
+  font-family: "Playball", cursive;
+  font-size: 50px;
+  position: relative;
+  top: 5px;
+  left: -2px;
+}
+
+/* ==========================================================================
+	 Main Animation	 ========================================================================== */
+
+.text-anim {
+  span {
+    opacity: 0;
+
+    @include anim-transition(all, 550ms);
+    @include anim-filter(blur, 25px);
+    @include anim-transform(translateZ, 0);
+  }
+
+  $letters: 21; //Define number of letters in animation - including spaces
+  $timing: 60ms; //Delay between letters
+
+  //Sets timing differntly for each letter
+  @while $letters > 0 {
+    span:nth-child(#{$letters}) {
+      -webkit-transition-delay: $timing * $letters;
+      -moz-transition-delay: $timing * $letters;
+      -ms-transition-delay: $timing * $letters;
+      transition-delay: $timing * $letters;
+    }
+    $letters: $letters - 1;
+  }
+}
+
+//Class added that animates
+.text-anim.animate span {
+  opacity: 1;
+  @include anim-filter(blur, 0px);
+}
