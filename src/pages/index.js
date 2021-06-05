@@ -4,6 +4,7 @@ import AnimatedText from "../components/AnimatedText/AnimatedText.js";
 import Photograph from "../components/Photograph/Photograph.js";
 import StarField from "../components/StarField/StarField.js";
 import NavigationMenu from "../components/NavigationMenu/NavigationMenu.js";
+import PhotographListGridView from "../components/PhotographListGridView/PhotographListGridView.js";
 import "./style.scss";
 
 // markup
@@ -16,15 +17,7 @@ const IndexPage = ({ data }) => {
         <NavigationMenu />
       </header>
       <div className="main-body">
-        {data.allDatoCmsPhotograph.nodes.map((props) => {
-          return (
-            <Photograph
-              {...props}
-              showProperties={false}
-              photographWidth={500}
-            />
-          );
-        })}
+        <PhotographListGridView data={data.allDatoCmsPhotograph.nodes} />
       </div>
     </div>
   );

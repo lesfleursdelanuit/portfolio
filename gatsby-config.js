@@ -3,6 +3,17 @@ module.exports = {
     title: "portfolio",
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {
+        stylesProvider: {
+          injectFirst: true,
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-styled-components`,
+    },
     "gatsby-plugin-sass",
     {
       resolve: `gatsby-source-datocms`,
