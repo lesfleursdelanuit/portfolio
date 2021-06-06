@@ -16,13 +16,10 @@ nav {
       display: inline-block;
       margin-left: 2em;
       padding-bottom: 0.5em;
-      &:first-of-type {
-        border-bottom: 4px solid white;
-      }
       &:hover {
         cursor: pointer;
         border-bottom: 4px solid white;
-
+        margin-bottom: 1em;
         transition: border-bottom 0.6s ease;
       }
     }

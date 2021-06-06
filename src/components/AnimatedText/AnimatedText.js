@@ -1,6 +1,7 @@
 import React from "react";
 import "./AnimatedText.scss";
-
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 class AnimatedText extends React.Component {
   constructor(props) {
     super(props);

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { graphql } from "gatsby";
 import AnimatedText from "../components/AnimatedText/AnimatedText.js";
-import Photograph from "../components/Photograph/Photograph.js";
 import StarField from "../components/StarField/StarField.js";
 import NavigationMenu from "../components/NavigationMenu/NavigationMenu.js";
 import PhotographListGridView from "../components/PhotographListGridView/PhotographListGridView.js";
+import PhotographListCarouselView from "../components/PhotographListCarouselView/PhotographListCarouselView.js";
 import "./style.scss";
 
 // markup
@@ -17,7 +17,7 @@ const IndexPage = ({ data }) => {
         <NavigationMenu />
       </header>
       <div className="main-body">
-        <PhotographListGridView data={data.allDatoCmsPhotograph.nodes} />
+        <PhotographListCarouselView data={data.allDatoCmsPhotograph.nodes} />
       </div>
     </div>
   );

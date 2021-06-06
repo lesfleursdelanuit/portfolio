@@ -21,14 +21,20 @@ class Photograph extends React.Component {
 
     return null;
   }
+  makeClasses() {
+    let classes = ["photograph-element", "pane"];
+    if (this.props.isVisible !== undefined && this.props.isVisible)
+      classes.push("visible");
+    if (this.props.isSelected !== undefined && this.props.isSelected)
+      classes.push("selected");
+
+    return classes.join(" ");
+  }
   render() {
     return (
-      <div className="photograph-element">
+      <div className={this.makeClasses()}>
         <div className="photograph">
-          <img
-            src={this.props.image.gatsbyImageData.images.fallback.src}
-            width={this.props.photographWidth}
-          />
+          <img src={this.props.image.gatsbyImageData.images.fallback.src} />
         </div>
         {this.makeProperties(this.props.showProperties)}
       </div>
