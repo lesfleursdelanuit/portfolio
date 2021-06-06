@@ -4,13 +4,14 @@ import "./NavigationMenu.scss";
 class NavigationMenu extends React.Component {
   render() {
     return (
-      <div>
+      <div className="slide-in-top">
         <nav>
           <ul>
             <li>CATEGORIES</li>
             <li>COLLECTIONS</li>
             <li>ABOUT</li>
             <li>INQUIRIES</li>
+            <li>SHOP</li>
           </ul>
         </nav>
       </div>

@@ -4,8 +4,14 @@ import "./PhotographListCarouselView.scss";
 
 // markup
 const Slide = (input) => {
+  const makeClasses = () => {
+    let classes = ["slide", "slide-fadeIn"];
+    if (input.isMiddle) classes.push("middle-slide");
+
+    return classes.join(" ");
+  };
   return (
-    <div className="slide">
+    <div className={makeClasses()}>
       <Photograph isVisible={true} {...input.data} showProperties={false} />
     </div>
   );

@@ -15,7 +15,7 @@ class AnimatedText extends React.Component {
     this.ref = React.createRef();
   }
   componentDidMount() {
-    this.timerID = setTimeout(() => this.tick(), 300);
+    this.timerID = setTimeout(() => this.tick(), 0);
   }
 
   tick() {

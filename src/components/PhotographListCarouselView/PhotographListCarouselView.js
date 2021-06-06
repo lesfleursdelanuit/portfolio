@@ -45,14 +45,16 @@ const PhotographListCarouselView = (input) => {
   const visibleList = getVisibleList();
 
   return (
-    <div className="carousel-view">
+    <div className="carousel-view slide-in-right">
       <div className="left-arrow arrow" onClick={moveLeft}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </div>
       <div className="carousel-middle">
-        {visibleList.map((index) => {
+        {visibleList.map((index, i) => {
           const photograph = input.data[index];
-          return <Slide index={index} data={photograph} />;
+          const isMiddle =
+            (numVisisble === 3 && i === 1) || (numVisisble === 0 && i === 0);
+          return <Slide index={index} isMiddle={isMiddle} data={photograph} />;
         })}
       </div>
       <div className="right-arrow arrow" onClick={moveRight}>

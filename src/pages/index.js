@@ -1,8 +1,7 @@
 import * as React from "react";
 import { graphql } from "gatsby";
-import AnimatedText from "../components/AnimatedText/AnimatedText.js";
 import StarField from "../components/StarField/StarField.js";
-import NavigationMenu from "../components/NavigationMenu/NavigationMenu.js";
+import Header from "../components/Header/Header.js";
 import PhotographListGridView from "../components/PhotographListGridView/PhotographListGridView.js";
 import PhotographListCarouselView from "../components/PhotographListCarouselView/PhotographListCarouselView.js";
 import "./style.scss";
@@ -12,10 +11,7 @@ const IndexPage = ({ data }) => {
   return (
     <div>
       <StarField />
-      <header>
-        <AnimatedText />
-        <NavigationMenu />
-      </header>
+      <Header />
       <div className="main-body">
         <PhotographListCarouselView data={data.allDatoCmsPhotograph.nodes} />
       </div>

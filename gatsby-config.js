@@ -1,6 +1,8 @@
 module.exports = {
   siteMetadata: {
     title: "portfolio",
+    siteUrl:
+      process.env.CURRENT_DOMAIN || `https://portfolio.lesfleursdelanuit.com`,
   },
   plugins: [
     {
