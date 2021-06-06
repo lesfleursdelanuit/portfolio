@@ -4,7 +4,11 @@ import "./PhotographListCarouselView.scss";
 
 // markup
 const Slide = (input) => {
-  return <Photograph isVisible={true} {...input.data} showProperties={false} />;
+  return (
+    <div className="slide">
+      <Photograph isVisible={true} {...input.data} showProperties={false} />
+    </div>
+  );
 };
 
 export default Slide;

@@ -1,57 +1,61 @@
 $pane-height: 60vh;
 $pane-width: 23vw;
 $margin: 1vw;
+$border-radius: 30px;
 .carousel-view {
   display: flex;
-  margin-top: 2vh;
-  margin-left: 5vw;
+  margin-top: 5vh;
+  margin-left: 10vw;
   height: $pane-height;
 
   .carousel-middle {
     margin-top: $margin;
     margin-bottom: $margin;
     margin-right: $margin;
+
+    .slide {
+      display: inline-block !important;
+      margin-left: $margin;
+      height: $pane-height;
+      width: $pane-width;
+    }
   }
 
   .arrow {
-    color: black;
-    background-color: white;
+    color: white;
+    border: 1px solid #5f5f5f;
+    background-color: transparent;
     padding: 1em;
-    height: 2vh;
+    height: 1.5vh;
     margin-top: calc(#{$pane-height}/ 2);
     cursor: pointer;
+    svg {
+      position: relative;
+      top: -2px;
+      transition: scale 1s ease;
+    }
+
+    border-radius: $border-radius;
   }
 
   .photograph-element {
-    display: none;
     &.pane {
       height: $pane-height;
       width: $pane-width;
       overflow: hidden;
-      margin-left: $margin;
     }
     .photograph {
       img {
-        opacity: 0.5;
+        opacity: 0.9;
+        filter: grayscale(1);
+        height: $pane-height;
+
         &:hover {
           filter: grayscale(0);
           opacity: 1 !important;
           transition: filter 1s ease, opacity 1s ease;
           cursor: pointer;
         }
-      }
-    }
-
-    &.visible {
-      display: inline-block !important;
-      img {
-        opacity: 1 !important;
-        height: $pane-height;
-      }
-    }
-    &.selected {
-      img {
-        filter: grayscale(0);
       }
     }
   }
