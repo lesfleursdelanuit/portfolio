@@ -21,7 +21,6 @@ $pane-width: 11vw;
       img {
         opacity: 1;
         height: $pane-height;
-        filter: grayscale(1);
         &:hover {
           cursor: pointer;
           filter: grayscale(0);
