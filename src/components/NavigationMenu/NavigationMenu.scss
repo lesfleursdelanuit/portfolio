@@ -10,6 +10,13 @@ nav {
   padding-top: 0;
   margin-top: 0;
   font-size: 14px;
+
+  .selectedPage {
+    border-bottom: 4px solid #5f5f5f;
+    margin-bottom: 1em;
+    font-weight: bolder;
+  }
+
   ul {
     list-style-type: none;
     padding: 0.5em;

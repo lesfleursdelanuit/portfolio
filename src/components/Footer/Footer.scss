@@ -4,9 +4,21 @@ footer {
   z-index: 7;
   color: white;
   padding-left: 56px;
-  padding-top: 2em;
-  padding-bottom: 2em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   width: 100%;
   background-color: black;
   font-family: "Julius Sans One";
+  font-size: 30px;
+  a,
+  a:active,
+  a:visited {
+    color: white;
+  }
+  a:hover {
+    color: grey;
+  }
+  .footer-button {
+    cursor: pointer;
+  }
 }

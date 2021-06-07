@@ -1,7 +1,8 @@
-$pane-height: 60vh;
-$pane-width: 18vw;
+$pane-height: 30vh;
+$pane-width: 11vw;
 .grid-view-wrapper {
   margin-left: 4vw;
+  margin-bottom: 200px;
 }
 .grid-view {
   display: flex;
@@ -10,13 +11,17 @@ $pane-width: 18vw;
     &.pane {
       height: $pane-height;
       width: $pane-width;
+      padding-top: 0em;
+      padding-bottom: 1em;
+      padding-left: 1em;
+
       overflow: hidden;
     }
     .photograph {
       img {
         opacity: 1;
         height: $pane-height;
-
+        filter: grayscale(1);
         &:hover {
           cursor: pointer;
           filter: grayscale(0);

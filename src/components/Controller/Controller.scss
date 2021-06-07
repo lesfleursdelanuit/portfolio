@@ -3,6 +3,11 @@
   padding-left: 1em;
   padding-bottom: 1em;
   color: grey;
+
+  .controller-button {
+    display: inline-block;
+  }
+
   .selectedView {
     color: white;
     transition: color 1s ease;

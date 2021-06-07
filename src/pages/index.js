@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 import StarField from "../components/StarField/StarField.js";
 import Header from "../components/Header/Header.js";
 import Footer from "../components/Footer/Footer.js";
-import Controller from "../components/Controller/Controller.js";
 import PhotographListGridView from "../components/PhotographListGridView/PhotographListGridView.js";
 import PhotographListCarouselView from "../components/PhotographListCarouselView/PhotographListCarouselView.js";
 import "./style.scss";
@@ -13,7 +12,6 @@ const IndexPage = ({ data }) => {
   const [whichView, setWhichView] = React.useState("carousel");
 
   const handleViewChange = (view) => {
-    console.log("in handleViewChange with " + view);
     setWhichView(view);
   };
 

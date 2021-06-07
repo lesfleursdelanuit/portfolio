@@ -6,25 +6,28 @@ import "./Controller.scss";
 // markup
 const Controller = (input) => {
   const makeClasses = (c) => {
-    if (c === input.view) return "selectedView";
-    return "";
+    let classes = ["controller-button"];
+    if (c === input.view) classes.push("selectedView");
+    return classes.join(" ");
   };
   return (
     <div className="controller">
-      <FontAwesomeIcon
-        icon={faTh}
+      <div
         className={makeClasses("grid")}
         onClick={() => {
           input.onViewChange("grid");
         }}
-      />
-      <FontAwesomeIcon
-        icon={faColumns}
+      >
+        <FontAwesomeIcon icon={faTh} />
+      </div>
+      <div
         className={makeClasses("carousel")}
         onClick={() => {
           input.onViewChange("carousel");
         }}
-      />
+      >
+        <FontAwesomeIcon icon={faColumns} />
+      </div>
     </div>
   );
 };
