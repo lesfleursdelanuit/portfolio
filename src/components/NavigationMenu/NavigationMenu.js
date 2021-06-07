@@ -7,7 +7,6 @@ class NavigationMenu extends React.Component {
       <div className="slide-in-top">
         <nav>
           <ul>
-            <li>CATEGORIES</li>
             <li>COLLECTIONS</li>
             <li>ABOUT</li>
             <li>INQUIRIES</li>

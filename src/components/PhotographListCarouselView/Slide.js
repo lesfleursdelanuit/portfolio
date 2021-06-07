@@ -4,14 +4,27 @@ import "./PhotographListCarouselView.scss";
 
 // markup
 const Slide = (input) => {
-  const makeClasses = () => {
-    let classes = ["slide", "slide-fadeIn"];
-    if (input.isMiddle) classes.push("middle-slide");
+  const [startAnimation, setStartAnimation] = React.useState(true);
 
+  const makeClasses = () => {
+    let classes = ["slide"];
+    if (input.isMiddle) classes.push("middle-slide");
+    if (startAnimation) classes.push("slide-fadeIn");
     return classes.join(" ");
   };
+
+  React.useEffect(() => {
+    setStartAnimation(!startAnimation);
+  }, [input.index]);
+
   return (
-    <div className={makeClasses()}>
+    <div
+      className={makeClasses()}
+      onAnimationEnd={() => {
+        setStartAnimation(false);
+      }}
+      data-id={input.index}
+    >
       <Photograph isVisible={true} {...input.data} showProperties={false} />
     </div>
   );

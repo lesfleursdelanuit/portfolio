@@ -1,6 +1,6 @@
 import * as React from "react";
-import Photograph from "../Photograph/Photograph.js";
 import Slide from "./Slide.js";
+import Controller from "../Controller/Controller.js";
 import {
   faChevronLeft,
   faChevronRight,
@@ -50,12 +50,17 @@ const PhotographListCarouselView = (input) => {
         <FontAwesomeIcon icon={faChevronLeft} />
       </div>
       <div className="carousel-middle">
-        {visibleList.map((index, i) => {
-          const photograph = input.data[index];
-          const isMiddle =
-            (numVisisble === 3 && i === 1) || (numVisisble === 0 && i === 0);
-          return <Slide index={index} isMiddle={isMiddle} data={photograph} />;
-        })}
+        <Controller view={input.view} onViewChange={input.onViewChange} />
+        <div className="slides">
+          {visibleList.map((index, i) => {
+            const photograph = input.data[index];
+            const isMiddle =
+              (numVisisble === 3 && i === 1) || (numVisisble === 0 && i === 0);
+            return (
+              <Slide index={index} isMiddle={isMiddle} data={photograph} />
+            );
+          })}
+        </div>
       </div>
       <div className="right-arrow arrow" onClick={moveRight}>
         <FontAwesomeIcon icon={faChevronRight} />

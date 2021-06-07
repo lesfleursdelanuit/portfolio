@@ -1,4 +1,28 @@
+$pane-height: 60vh;
+$pane-width: 18vw;
+.grid-view-wrapper {
+  margin-left: 4vw;
+}
 .grid-view {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  .photograph-element {
+    &.pane {
+      height: $pane-height;
+      width: $pane-width;
+      overflow: hidden;
+    }
+    .photograph {
+      img {
+        opacity: 1;
+        height: $pane-height;
+
+        &:hover {
+          cursor: pointer;
+          filter: grayscale(0);
+          transition: filter 1s ease;
+        }
+      }
+    }
+  }
 }

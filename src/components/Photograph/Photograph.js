@@ -3,6 +3,12 @@ import PhotographProperties from "../PhotographProperties/PhotographProperties.j
 import "./Photograph.scss";
 
 class Photograph extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      img: this.props.image.gatsbyImageData.images.fallback.src,
+    };
+  }
   makeProperties() {
     let props = [
       { name: "Tags", data: this.props.tags },
@@ -30,6 +36,7 @@ class Photograph extends React.Component {
 
     return classes.join(" ");
   }
+
   render() {
     return (
       <div className={this.makeClasses()}>

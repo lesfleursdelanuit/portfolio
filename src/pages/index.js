@@ -2,19 +2,45 @@ import * as React from "react";
 import { graphql } from "gatsby";
 import StarField from "../components/StarField/StarField.js";
 import Header from "../components/Header/Header.js";
+import Footer from "../components/Footer/Footer.js";
+import Controller from "../components/Controller/Controller.js";
 import PhotographListGridView from "../components/PhotographListGridView/PhotographListGridView.js";
 import PhotographListCarouselView from "../components/PhotographListCarouselView/PhotographListCarouselView.js";
 import "./style.scss";
 
 // markup
 const IndexPage = ({ data }) => {
+  const [whichView, setWhichView] = React.useState("carousel");
+
+  const handleViewChange = (view) => {
+    console.log("in handleViewChange with " + view);
+    setWhichView(view);
+  };
+
+  const determineWhichView = () => {
+    if (whichView === "carousel")
+      return (
+        <PhotographListCarouselView
+          data={data.allDatoCmsPhotograph.nodes}
+          view={whichView}
+          onViewChange={handleViewChange}
+        />
+      );
+    return (
+      <PhotographListGridView
+        data={data.allDatoCmsPhotograph.nodes}
+        view={whichView}
+        onViewChange={handleViewChange}
+      />
+    );
+  };
+
   return (
     <div>
       <StarField />
       <Header />
-      <div className="main-body">
-        <PhotographListCarouselView data={data.allDatoCmsPhotograph.nodes} />
-      </div>
+      <div className="main-body">{determineWhichView()}</div>
+      <Footer />
     </div>
   );
 };
