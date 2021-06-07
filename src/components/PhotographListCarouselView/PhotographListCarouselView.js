@@ -6,6 +6,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FilterLabel from "../FilterLabel/FilterLabel.js";
 import "./PhotographListCarouselView.scss";
 
 // markup
@@ -50,7 +51,13 @@ const PhotographListCarouselView = (input) => {
         <FontAwesomeIcon icon={faChevronLeft} />
       </div>
       <div className="carousel-middle">
-        <Controller view={input.view} onViewChange={input.onViewChange} />
+        <div>
+          <Controller
+            view={input.view}
+            onViewChange={input.onViewChange}
+            filter={input.filter}
+          />
+        </div>
         <div className="slides">
           {visibleList.map((index, i) => {
             const photograph = input.data[index];

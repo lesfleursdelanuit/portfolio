@@ -3,6 +3,7 @@ import {
   faPaperPlane,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavigationMenu.scss";
 
@@ -42,6 +43,14 @@ class NavigationMenu extends React.Component {
             </li>
             <li data-name="shop" className={this.makeClasses("shop")}>
               <FontAwesomeIcon icon={faShoppingCart} />
+            </li>
+            <li
+              data-name="instagram-link"
+              className={this.makeClasses("instagram-link")}
+            >
+              <a href="https://wwww.instagram.com/lesfleursdelanuit/">
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
             </li>
           </ul>
         </nav>

@@ -10,6 +10,7 @@ import "./style.scss";
 // markup
 const IndexPage = ({ data }) => {
   const [whichView, setWhichView] = React.useState("carousel");
+  const [whichFilter, setWhichFilter] = React.useState("favorite");
 
   const handleViewChange = (view) => {
     setWhichView(view);
@@ -21,6 +22,7 @@ const IndexPage = ({ data }) => {
         <PhotographListCarouselView
           data={data.allDatoCmsPhotograph.nodes}
           view={whichView}
+          filter={whichFilter}
           onViewChange={handleViewChange}
         />
       );
@@ -28,6 +30,7 @@ const IndexPage = ({ data }) => {
       <PhotographListGridView
         data={data.allDatoCmsPhotograph.nodes}
         view={whichView}
+        filter={whichFilter}
         onViewChange={handleViewChange}
       />
     );

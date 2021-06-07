@@ -1,6 +1,7 @@
 import * as React from "react";
 import { faTh, faColumns } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FilterLabel from "../FilterLabel/FilterLabel.js";
 import "./Controller.scss";
 
 // markup
@@ -28,6 +29,7 @@ const Controller = (input) => {
       >
         <FontAwesomeIcon icon={faColumns} />
       </div>
+      <FilterLabel filter={input.filter} />
     </div>
   );
 };
