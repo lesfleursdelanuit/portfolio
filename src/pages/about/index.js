@@ -60,7 +60,7 @@ const IndexPage = ({ data }) => {
       <StarField />
       <Header selectedPage="about" />
       <div className="main-body">{determineWhichView()}</div>
-      <Footer />
+      <Footer selectedPage="about" />
     </div>
   );
 };
@@ -120,19 +120,6 @@ export const query = graphql`
           url
           path
           filename
-          colors {
-            alpha
-            blue
-            green
-            hex
-            red
-            rgb
-          }
-          resolutions {
-            srcSet
-            src
-          }
-          smartTags
         }
         tags {
           name
@@ -146,6 +133,24 @@ export const query = graphql`
           id
           name
         }
+      }
+    }
+    allDatoCmsTag {
+      nodes {
+        id
+        name
+      }
+    }
+    allDatoCmsColor {
+      nodes {
+        id
+        name
+      }
+    }
+    allDatoCmsLocation {
+      nodes {
+        id
+        name
       }
     }
   }

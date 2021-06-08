@@ -1,11 +1,11 @@
 import * as React from "react";
 import { graphql } from "gatsby";
-import StarField from "../components/StarField/StarField.js";
-import Header from "../components/Header/Header.js";
-import Footer from "../components/Footer/Footer.js";
-import PhotographListGridView from "../components/PhotographListGridView/PhotographListGridView.js";
-import PhotographListCarouselView from "../components/PhotographListCarouselView/PhotographListCarouselView.js";
-import "./style.scss";
+import StarField from "../../components/StarField/StarField.js";
+import Header from "../../components/Header/Header.js";
+import Footer from "../../components/Footer/Footer.js";
+import PhotographListGridView from "../../components/PhotographListGridView/PhotographListGridView.js";
+import PhotographListCarouselView from "../../components/PhotographListCarouselView/PhotographListCarouselView.js";
+import "../style.scss";
 
 // markup
 const IndexPage = ({ data }) => {
@@ -13,7 +13,6 @@ const IndexPage = ({ data }) => {
   const [whichFilterType, setWhichFilterType] = React.useState("tags");
   const [whichFilter, setWhichFilter] = React.useState("favorite");
 
-  console.log(data);
   const handleViewChange = (view) => {
     setWhichView(view);
   };
@@ -59,14 +58,9 @@ const IndexPage = ({ data }) => {
   return (
     <div>
       <StarField />
-      <Header selectedPage="gallery" />
+      <Header selectedPage="shop" />
       <div className="main-body">{determineWhichView()}</div>
-      <Footer
-        locations={data.allDatoCmsLocation}
-        colors={data.allDatoCmsColor}
-        tags={data.allDatoCmsTag}
-        selectedPage="gallery"
-      />
+      <Footer />
     </div>
   );
 };
@@ -115,18 +109,30 @@ const IndexPage = ({ data }) => {
   }
 `;*/
 
-//export const query = graphql`
-
 export const query = graphql`
   {
     allDatoCmsPhotograph {
       nodes {
         id
+        order
         image {
           gatsbyImageData
           url
           path
           filename
+          colors {
+            alpha
+            blue
+            green
+            hex
+            red
+            rgb
+          }
+          resolutions {
+            srcSet
+            src
+          }
+          smartTags
         }
         tags {
           name
@@ -142,29 +148,6 @@ export const query = graphql`
         }
       }
     }
-    allDatoCmsTag {
-      nodes {
-        id
-        name
-      }
-    }
-    allDatoCmsColor {
-      nodes {
-        id
-        name
-        hexcode {
-          hex
-          rgb
-        }
-      }
-    }
-    allDatoCmsLocation {
-      nodes {
-        id
-        name
-      }
-    }
   }
 `;
-
 export default IndexPage;

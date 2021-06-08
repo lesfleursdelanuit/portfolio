@@ -38,7 +38,9 @@ class NavigationMenu extends React.Component {
               </a>
             </li>
             <li data-name="shop" className={this.makeClasses("shop")}>
-              <FontAwesomeIcon icon={faShoppingCart} />
+              <a href="/shop">
+                <FontAwesomeIcon icon={faShoppingCart} />
+              </a>
             </li>
             <li
               data-name="instagram-link"

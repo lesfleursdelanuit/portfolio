@@ -29,7 +29,7 @@ const Controller = (input) => {
       >
         <FontAwesomeIcon icon={faColumns} />
       </div>
-      <FilterLabel filter={input.filter} />
+      <FilterLabel filter={input.filter.toUpperCase()} />
     </div>
   );
 };

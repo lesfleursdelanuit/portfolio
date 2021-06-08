@@ -1,11 +1,6 @@
 import * as React from "react";
 import Slide from "./Slide.js";
 import Controller from "../Controller/Controller.js";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CarouselArrow from "../CarouselArrow/CarouselArrow.js";
 import "./PhotographListCarouselView.scss";
 
