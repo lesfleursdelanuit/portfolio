@@ -9,7 +9,9 @@ import "./ColorPicker.scss";
 const ColorPicker = (input) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const options = input.colors.nodes;
+  const options = input.colors.nodes.sort((a, b) => {
+    return a.name < b.name;
+  });
   const ITEM_HEIGHT = 48;
 
   const handleClick = (e) => {
@@ -17,6 +19,11 @@ const ColorPicker = (input) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleMenuItemClick = (e) => {
+    handleClose();
+    let data = { id: e.target.dataset.id, type: "colors" };
+    input.onFilterChange(data);
   };
 
   return (
@@ -46,9 +53,14 @@ const ColorPicker = (input) => {
         {options.map((option) => (
           <MenuItem
             key={option.id}
-            selected={option === "Pyxis"}
+            selected={
+              input.whichFilterType === "colors" &&
+              input.whichFilter === option.name
+            }
             className="menu-item"
-            onClick={handleClose}
+            onClick={handleMenuItemClick}
+            data-v={option.value}
+            data-id={option.id}
           >
             <span
               style={{

@@ -12,8 +12,16 @@ const IndexPage = ({ data }) => {
   const [whichView, setWhichView] = React.useState("carousel");
   const [whichFilterType, setWhichFilterType] = React.useState("tags");
   const [whichFilter, setWhichFilter] = React.useState("favorite");
+  let lookupTable = {};
+  Object.keys(data).forEach((key) => {
+    data[key].nodes.forEach((node) => {
+      lookupTable[node.id] = node;
+    });
+  });
 
-  console.log(data);
+  //console.log(lookupTable);
+
+  // console.log(data);
   const handleViewChange = (view) => {
     setWhichView(view);
   };
@@ -56,6 +64,16 @@ const IndexPage = ({ data }) => {
     );
   };
 
+  const handleFilterChange = (input) => {
+    console.log("We are going to change the filter");
+    const name = lookupTable[input.id].name;
+    const filterType = input.type;
+    setWhichFilter(name);
+    setWhichFilterType(filterType);
+    //console.log(name);
+    //console.log(filterType);
+  };
+
   return (
     <div>
       <StarField />
@@ -65,6 +83,9 @@ const IndexPage = ({ data }) => {
         locations={data.allDatoCmsLocation}
         colors={data.allDatoCmsColor}
         tags={data.allDatoCmsTag}
+        whichFilter={whichFilter}
+        whichFilterType={whichFilterType}
+        onFilterChange={handleFilterChange}
         selectedPage="gallery"
       />
     </div>

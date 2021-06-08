@@ -9,7 +9,9 @@ import "./LocationPicker.scss";
 const LocationPicker = (input) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const options = input.locations.nodes;
+  const options = input.locations.nodes.sort((a, b) => {
+    return a.name < b.name;
+  });
   const ITEM_HEIGHT = 48;
 
   const handleClick = (e) => {
@@ -18,7 +20,11 @@ const LocationPicker = (input) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleMenuItemClick = (e) => {
+    handleClose();
+    let data = { id: e.target.dataset.id, type: "locations" };
+    input.onFilterChange(data);
+  };
   return (
     <div>
       <div onClick={handleClick}>
@@ -46,9 +52,14 @@ const LocationPicker = (input) => {
         {options.map((option) => (
           <MenuItem
             key={option.id}
-            selected={option === "Pyxis"}
+            selected={
+              input.whichFilterType === "locations" &&
+              input.whichFilter === option.name
+            }
             className="menu-item"
-            onClick={handleClose}
+            onClick={handleMenuItemClick}
+            data-v={option.value}
+            data-id={option.id}
           >
             {option.name}
           </MenuItem>

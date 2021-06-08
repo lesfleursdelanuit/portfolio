@@ -7,7 +7,15 @@ import "./Footer.scss";
 const Footer = (input) => {
   const determineWhichFooter = (whichPage) => {
     if (whichPage === undefined) return null;
-    else if (whichPage === "gallery") return <GalleryFooter {...input} />;
+    else if (whichPage === "gallery")
+      return (
+        <GalleryFooter
+          {...input}
+          whichFilter={input.whichFilter}
+          whichFilterType={input.whichFilterType}
+          onFilterChange={input.onFilterChange}
+        />
+      );
     else if (whichPage === "about") return <AboutFooter {...input} />;
     return null;
   };

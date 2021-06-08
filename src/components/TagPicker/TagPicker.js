@@ -7,10 +7,15 @@ import "./TagPicker.scss";
 
 // markup
 const TagPicker = (input) => {
-  console.log(input);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const options = input.tags.nodes;
+  let options = input.tags.nodes;
+  //console.log(options);
+
+  options = options.sort((a, b) => {
+    return a.name > b.name;
+  });
+
   const ITEM_HEIGHT = 48;
 
   const handleClick = (e) => {
@@ -18,6 +23,11 @@ const TagPicker = (input) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleMenuItemClick = (e) => {
+    handleClose();
+    let data = { id: e.target.dataset.id, type: "tags" };
+    input.onFilterChange(data);
   };
   return (
     <div>
@@ -46,9 +56,14 @@ const TagPicker = (input) => {
         {options.map((option) => (
           <MenuItem
             key={option.id}
-            selected={option === "Pyxis"}
+            selected={
+              input.whichFilterType === "tags" &&
+              input.whichFilter === option.name
+            }
             className="menu-item"
-            onClick={handleClose}
+            onClick={handleMenuItemClick}
+            data-v={option.value}
+            data-id={option.id}
           >
             {option.name}
           </MenuItem>
