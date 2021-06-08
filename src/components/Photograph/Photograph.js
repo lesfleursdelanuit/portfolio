@@ -1,13 +1,17 @@
 import React from "react";
 import PhotographProperties from "../PhotographProperties/PhotographProperties.js";
+import Modal from "@material-ui/core/Modal";
 import "./Photograph.scss";
 
 class Photograph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      img: this.props.image.gatsbyImageData.images.fallback.src,
+      modalOpen: false,
     };
+
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
   }
   makeProperties() {
     let props = [
@@ -37,13 +41,39 @@ class Photograph extends React.Component {
     return classes.join(" ");
   }
 
+  handleCloseModal(e) {
+    e.stopPropagation();
+    console.log("closing");
+    this.setState((state, props) => {
+      return { modalOpen: false };
+    });
+  }
+
+  handleOpenModal(e) {
+    e.target.blur();
+    console.log("opening");
+    this.setState((state, props) => {
+      return { modalOpen: true };
+    });
+  }
+
   render() {
     return (
-      <div className={this.makeClasses()}>
+      <div className={this.makeClasses()} onClick={this.handleOpenModal}>
         <div className="photograph">
           <img src={this.props.image.gatsbyImageData.images.fallback.src} />
         </div>
         {this.makeProperties(this.props.showProperties)}
+
+        <Modal
+          open={this.state.modalOpen}
+          onClose={this.handleCloseModal}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          className="modal-image"
+        >
+          <img src={this.props.image.gatsbyImageData.images.fallback.src} />
+        </Modal>
       </div>
     );
   }

@@ -16,8 +16,8 @@ const PhotographListGridView = (input) => {
         />
       </div>
       <div className="grid-view">
-        {input.data.map((props) => {
-          return <Photograph {...props} showProperties={false} />;
+        {input.data.map((props, index) => {
+          return <Photograph {...props} key={index} showProperties={false} />;
         })}
       </div>
     </div>

@@ -6,7 +6,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FilterLabel from "../FilterLabel/FilterLabel.js";
+import CarouselArrow from "../CarouselArrow/CarouselArrow.js";
 import "./PhotographListCarouselView.scss";
 
 // markup
@@ -47,9 +47,7 @@ const PhotographListCarouselView = (input) => {
 
   return (
     <div className="carousel-view slide-in-right">
-      <div className="left-arrow arrow" onClick={moveLeft}>
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </div>
+      <CarouselArrow dir="left" handleMove={moveLeft} />
       <div className="carousel-middle">
         <div>
           <Controller
@@ -69,9 +67,7 @@ const PhotographListCarouselView = (input) => {
           })}
         </div>
       </div>
-      <div className="right-arrow arrow" onClick={moveRight}>
-        <FontAwesomeIcon icon={faChevronRight} />
-      </div>
+      <CarouselArrow dir="right" handleMove={moveRight} />
     </div>
   );
 };

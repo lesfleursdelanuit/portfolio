@@ -29,12 +29,6 @@ class NavigationMenu extends React.Component {
             <li data-name="gallery" className={this.makeClasses("gallery")}>
               GALLERY
             </li>
-            <li
-              data-name="collections"
-              className={this.makeClasses("collections")}
-            >
-              COLLECTIONS
-            </li>
             <li data-name="about" className={this.makeClasses("about")}>
               ABOUT
             </li>
