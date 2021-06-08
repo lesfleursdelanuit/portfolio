@@ -11,7 +11,7 @@ class NavigationMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPage: "gallery",
+      selectedPage: this.props.selectedPage,
     };
   }
 
@@ -27,13 +27,15 @@ class NavigationMenu extends React.Component {
         <nav>
           <ul>
             <li data-name="gallery" className={this.makeClasses("gallery")}>
-              GALLERY
+              <a href="/">GALLERY</a>
             </li>
             <li data-name="about" className={this.makeClasses("about")}>
-              ABOUT
+              <a href="/about">ABOUT</a>
             </li>
             <li data-name="inquiries" className={this.makeClasses("inquiries")}>
-              <FontAwesomeIcon icon={faPaperPlane} />
+              <a href="/inquiries">
+                <FontAwesomeIcon icon={faPaperPlane} />
+              </a>
             </li>
             <li data-name="shop" className={this.makeClasses("shop")}>
               <FontAwesomeIcon icon={faShoppingCart} />

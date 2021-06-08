@@ -8,7 +8,7 @@ const Header = (input) => {
   return (
     <header>
       <AnimatedText />
-      <NavigationMenu />
+      <NavigationMenu selectedPage={input.selectedPage} />
     </header>
   );
 };

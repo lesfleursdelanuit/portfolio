@@ -1,11 +1,11 @@
 import * as React from "react";
 import { graphql } from "gatsby";
-import StarField from "../components/StarField/StarField.js";
-import Header from "../components/Header/Header.js";
-import Footer from "../components/Footer/Footer.js";
-import PhotographListGridView from "../components/PhotographListGridView/PhotographListGridView.js";
-import PhotographListCarouselView from "../components/PhotographListCarouselView/PhotographListCarouselView.js";
-import "./style.scss";
+import StarField from "../../components/StarField/StarField.js";
+import Header from "../../components/Header/Header.js";
+import Footer from "../../components/Footer/Footer.js";
+import PhotographListGridView from "../../components/PhotographListGridView/PhotographListGridView.js";
+import PhotographListCarouselView from "../../components/PhotographListCarouselView/PhotographListCarouselView.js";
+import "../style.scss";
 
 // markup
 const IndexPage = ({ data }) => {
@@ -58,7 +58,7 @@ const IndexPage = ({ data }) => {
   return (
     <div>
       <StarField />
-      <Header selectedPage="gallery" />
+      <Header selectedPage="inquiries" />
       <div className="main-body">{determineWhichView()}</div>
       <Footer />
     </div>
