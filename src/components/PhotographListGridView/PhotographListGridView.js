@@ -1,7 +1,6 @@
 import * as React from "react";
 import Photograph from "../Photograph/Photograph.js";
 import Controller from "../Controller/Controller.js";
-import FilterLabel from "../FilterLabel/FilterLabel.js";
 import "./PhotographListGridView.scss";
 
 // markup
@@ -12,12 +11,20 @@ const PhotographListGridView = (input) => {
         <Controller
           view={input.view}
           onViewChange={input.onViewChange}
+          manager={input.manager}
           filter={input.filter}
         />
       </div>
       <div className="grid-view">
         {input.data.map((props, index) => {
-          return <Photograph {...props} key={index} showProperties={false} />;
+          return (
+            <Photograph
+              manager={input.manager}
+              {...props}
+              key={index}
+              showProperties={false}
+            />
+          );
         })}
       </div>
     </div>

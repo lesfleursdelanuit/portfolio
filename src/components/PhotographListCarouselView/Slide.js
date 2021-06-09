@@ -13,10 +13,6 @@ const Slide = (input) => {
     return classes.join(" ");
   };
 
-  React.useEffect(() => {
-    setStartAnimation(!startAnimation);
-  }, [input.index]);
-
   return (
     <div
       className={makeClasses()}

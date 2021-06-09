@@ -6,71 +6,104 @@ import "./PhotographListCarouselView.scss";
 
 // markup
 const PhotographListCarouselView = (input) => {
-  const [startIndex, setStartIndex] = React.useState(0);
-  const [numVisisble, setNumVisible] = React.useState(3);
+  const [startIndex, setStartIndex] = React.useState(
+    input.manager.getStartIndex()
+  );
+  const [numVisible, setNumVisible] = React.useState(3);
+  const carouselMiddleRef = React.useRef(null);
+  const carouselViewRef = React.useRef(null);
+  let appManagerId = null;
+
+  React.useEffect(() => {
+    appManagerId = input.manager.registerListener((changed) => {
+      let changedSet = new Set(changed);
+      // console.log("listening to change...");
+      if (changedSet.has("startIndex") || changedSet.has("filter")) {
+        //console.log("in the if statement");
+        //console.log(input.manager.getStartIndex());
+
+        if (input.manager.getStartIndex() === 0)
+          carouselMiddleRef.current.scrollLeft = 0;
+        //console.log(carouselMiddleRef.current.scrollLeft);
+        setStartIndex(input.manager.getStartIndex());
+      }
+    });
+
+    return () => {
+      input.manager.unregisterListener(appManagerId);
+    };
+  }, startIndex);
 
   const isVisible = (index) => {
     // how many will be visible?
-    let lastIndex = startIndex + numVisisble;
+    let lastIndex = startIndex + numVisible;
     return index >= startIndex && index < lastIndex;
+  };
+
+  const computeWidth = (i) => {
+    const slide = carouselMiddleRef.current.childNodes[i];
+    const computedStyle = window.getComputedStyle(slide);
+    let width = parseFloat(computedStyle.width);
+    width += parseFloat(computedStyle.marginRight);
+    width += parseFloat(computedStyle.marginLeft);
+
+    return width;
   };
 
   const moveLeft = () => {
     let newStartIndex = startIndex - 1;
-    if (newStartIndex < 0) newStartIndex = input.data.length - 1;
-    setStartIndex(newStartIndex);
+    if (newStartIndex >= 0) {
+      carouselMiddleRef.current.scrollLeft -= computeWidth(newStartIndex);
+      input.manager.handleStartIndexChange(newStartIndex);
+      console.log(input.manager.startIndex);
+    }
   };
 
   const moveRight = () => {
     let newStartIndex = startIndex + 1;
-    if (newStartIndex >= input.data.length) newStartIndex = 0;
-    setStartIndex(newStartIndex);
-  };
-
-  const getVisibleList = () => {
-    if (numVisisble === 3 && input.data.length >= 3) {
-      const numLeft = input.data.length - startIndex;
-      if (numLeft >= 3) return [startIndex, startIndex + 1, startIndex + 2];
-      if (numLeft === 1) return [startIndex, 0, 1];
-      return [startIndex, startIndex + 1, 0];
-    } else if (input.data.length < 3) {
-      let indicies = [];
-      for (let i = 0; i < input.data.length; i++) indicies.push(i);
-
-      const numLeft = input.data.length - 3;
-      for (let i = 0; i < numLeft; i++) indicies.push(i);
-
-      return indicies;
+    let numLeft = input.data.length - newStartIndex;
+    if (newStartIndex < input.data.length && numLeft >= numVisible) {
+      carouselMiddleRef.current.scrollLeft += computeWidth(newStartIndex);
+      input.manager.handleStartIndexChange(newStartIndex);
+      console.log(input.manager.startIndex);
     }
-
-    return [startIndex];
   };
-
-  const visibleList = getVisibleList();
 
   return (
-    <div className="carousel-view slide-in-right">
-      <CarouselArrow dir="left" handleMove={moveLeft} />
+    <div ref={carouselViewRef} className="carousel-view slide-in-right">
+      <CarouselArrow manager={input.manager} dir="left" handleMove={moveLeft} />
       <div className="carousel-middle">
         <div>
           <Controller
             view={input.view}
             onViewChange={input.onViewChange}
+            manager={input.manager}
             filter={input.filter}
           />
         </div>
-        <div className="slides">
-          {visibleList.map((index, i) => {
-            const photograph = input.data[index];
-            const isMiddle =
-              (numVisisble === 3 && i === 1) || (numVisisble === 0 && i === 0);
+        <div className="slides" ref={carouselMiddleRef}>
+          {input.data.map((node, i) => {
+            const photograph = node;
+            let isMiddle =
+              (numVisible === 3 && i === startIndex + 1) || numVisible === 1;
+            // console.log("isMiddle?");
+            // console.log(isMiddle);
             return (
-              <Slide index={index} isMiddle={isMiddle} data={photograph} />
+              <Slide
+                manager={input.manager}
+                index={i}
+                isMiddle={isMiddle}
+                data={photograph}
+              />
             );
           })}
         </div>
       </div>
-      <CarouselArrow dir="right" handleMove={moveRight} />
+      <CarouselArrow
+        manager={input.manager}
+        dir="right"
+        handleMove={moveRight}
+      />
     </div>
   );
 };

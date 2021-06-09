@@ -27,7 +27,8 @@ const TagPicker = (input) => {
   const handleMenuItemClick = (e) => {
     handleClose();
     let data = { id: e.target.dataset.id, type: "tags" };
-    input.onFilterChange(data);
+    // input.onFilterChange(data);
+    input.manager.handleFilterChange(data);
   };
   return (
     <div>

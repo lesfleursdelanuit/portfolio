@@ -16,7 +16,8 @@ const Controller = (input) => {
       <div
         className={makeClasses("grid")}
         onClick={() => {
-          input.onViewChange("grid");
+          //input.onViewChange("grid");
+          input.manager.handleViewChange("grid");
         }}
       >
         <FontAwesomeIcon icon={faTh} />
@@ -24,7 +25,8 @@ const Controller = (input) => {
       <div
         className={makeClasses("carousel")}
         onClick={() => {
-          input.onViewChange("carousel");
+          //  input.onViewChange("carousel");
+          input.manager.handleViewChange("carousel");
         }}
       >
         <FontAwesomeIcon icon={faColumns} />

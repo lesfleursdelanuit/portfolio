@@ -18,7 +18,8 @@ const GalleryFooter = (input) => {
               locations={input.locations}
               whichFilter={input.whichFilter}
               whichFilterType={input.whichFilterType}
-              onFilterChange={input.onFilterChange}
+              //  onFilterChange={input.onFilterChange}
+              manager={input.manager}
             />
           </li>
           <li>
@@ -26,7 +27,8 @@ const GalleryFooter = (input) => {
               tags={input.tags}
               whichFilter={input.whichFilter}
               whichFilterType={input.whichFilterType}
-              onFilterChange={input.onFilterChange}
+              //   onFilterChange={input.onFilterChange}
+              manager={input.manager}
             />
           </li>
           <li>
@@ -34,12 +36,14 @@ const GalleryFooter = (input) => {
               colors={input.colors}
               whichFilter={input.whichFilter}
               whichFilterType={input.whichFilterType}
-              onFilterChange={input.onFilterChange}
+              //   onFilterChange={input.onFilterChange}
+              manager={input.manager}
             />
           </li>
           <li
             onClick={() => {
-              input.onFilterChange({ type: "all", id: null });
+              // input.onFilterChange({ type: "all", id: null });
+              input.manager.handleFilterChange({ type: "all", id: null });
             }}
           >
             <span className="icon">

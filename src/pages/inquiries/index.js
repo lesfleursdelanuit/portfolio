@@ -12,7 +12,6 @@ const IndexPage = ({ data }) => {
   const [whichView, setWhichView] = React.useState("carousel");
   const [whichFilterType, setWhichFilterType] = React.useState("tags");
   const [whichFilter, setWhichFilter] = React.useState("favorite");
-
   const handleViewChange = (view) => {
     setWhichView(view);
   };
@@ -59,95 +58,9 @@ const IndexPage = ({ data }) => {
     <div>
       <StarField />
       <Header selectedPage="inquiries" />
-      <div className="main-body">{determineWhichView()}</div>
-      <Footer />
+      <h1>Inquiries</h1>
     </div>
   );
 };
 
-/*export const query = graphql`
-  {
-    allDatoCmsPhotograph(
-      filter: { tags: { elemMatch: { name: { eq: "favorite" } } } }
-    ) {
-      nodes {
-        id
-        image {
-          gatsbyImageData
-          url
-          path
-          filename
-          colors {
-            alpha
-            blue
-            green
-            hex
-            red
-            rgb
-          }
-          resolutions {
-            srcSet
-            src
-          }
-          smartTags
-        }
-        order
-        tags {
-          name
-          id
-        }
-        colors {
-          name
-          id
-        }
-        locations {
-          id
-          name
-        }
-      }
-    }
-  }
-`;*/
-
-export const query = graphql`
-  {
-    allDatoCmsPhotograph {
-      nodes {
-        id
-        order
-        image {
-          gatsbyImageData
-          url
-          path
-          filename
-          colors {
-            alpha
-            blue
-            green
-            hex
-            red
-            rgb
-          }
-          resolutions {
-            srcSet
-            src
-          }
-          smartTags
-        }
-        tags {
-          name
-          id
-        }
-        colors {
-          name
-          id
-        }
-        locations {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
 export default IndexPage;

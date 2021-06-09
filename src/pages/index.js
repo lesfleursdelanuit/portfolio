@@ -1,5 +1,6 @@
 import * as React from "react";
 import { graphql } from "gatsby";
+import AppManager from "../models/AppManager.js";
 import StarField from "../components/StarField/StarField.js";
 import Header from "../components/Header/Header.js";
 import Footer from "../components/Footer/Footer.js";
@@ -7,21 +8,41 @@ import PhotographListGridView from "../components/PhotographListGridView/Photogr
 import PhotographListCarouselView from "../components/PhotographListCarouselView/PhotographListCarouselView.js";
 import "./style.scss";
 
+const appManager = new AppManager();
 // markup
 const IndexPage = ({ data }) => {
-  const [whichView, setWhichView] = React.useState("carousel");
-  const [whichFilterType, setWhichFilterType] = React.useState("tags");
-  const [whichFilter, setWhichFilter] = React.useState("favorite");
-  let lookupTable = {};
+  const [whichView, setWhichView] = React.useState(appManager.getView());
+  const [whichFilterType, setWhichFilterType] = React.useState(
+    appManager.getFilterType()
+  );
+  const [whichFilter, setWhichFilter] = React.useState(appManager.getFilter());
+  const [filterChanges, setFilterChanges] = React.useState(0);
+  let appManagerId = null;
   Object.keys(data).forEach((key) => {
     data[key].nodes.forEach((node) => {
-      lookupTable[node.id] = node;
+      appManager.lookupTable[node.id] = node;
     });
   });
 
-  const handleViewChange = (view) => {
+  React.useEffect(() => {
+    appManagerId = appManager.registerListener((changed) => {
+      let changedSet = new Set(changed);
+      if (changedSet.has("filter")) {
+        setWhichFilter(appManager.getFilter());
+        setWhichFilterType(appManager.getFilterType());
+        setFilterChanges(filterChanges + 1);
+      }
+      if (changedSet.has("view")) setWhichView(appManager.getView());
+    });
+
+    return () => {
+      appManager.unregisterListener(appManagerId);
+    };
+  });
+
+  /* const handleViewChange = (view) => {
     setWhichView(view);
-  };
+  };*/
 
   const filteredData = () => {
     if (whichFilter === "all") return data.allDatoCmsPhotograph.nodes;
@@ -49,7 +70,8 @@ const IndexPage = ({ data }) => {
           data={filtered}
           view={whichView}
           filter={whichFilter}
-          onViewChange={handleViewChange}
+          manager={appManager}
+          //   onViewChange={handleViewChange}
         />
       );
     return (
@@ -57,14 +79,15 @@ const IndexPage = ({ data }) => {
         data={filtered}
         view={whichView}
         filter={whichFilter}
-        onViewChange={handleViewChange}
+        manager={appManager}
+        //  onViewChange={handleViewChange}
       />
     );
   };
 
-  const handleFilterChange = (input) => {
+  /*const handleFilterChange = (input) => {
     if (input.type !== "all") {
-      const name = lookupTable[input.id].name;
+      const name = appManager.lookupTable[input.id].name;
       const filterType = input.type;
       setWhichFilter(name);
       setWhichFilterType(filterType);
@@ -72,12 +95,12 @@ const IndexPage = ({ data }) => {
       setWhichFilter("all");
       setWhichFilterType("all");
     }
-  };
+  };*/
 
   return (
     <div>
       <StarField />
-      <Header selectedPage="gallery" />
+      <Header selectedPage="gallery" manager={appManager} />
       <div className="main-body">{determineWhichView()}</div>
       <Footer
         locations={data.allDatoCmsLocation}
@@ -85,7 +108,8 @@ const IndexPage = ({ data }) => {
         tags={data.allDatoCmsTag}
         whichFilter={whichFilter}
         whichFilterType={whichFilterType}
-        onFilterChange={handleFilterChange}
+        //  onFilterChange={handleFilterChange}
+        manager={appManager}
         selectedPage="gallery"
       />
     </div>
