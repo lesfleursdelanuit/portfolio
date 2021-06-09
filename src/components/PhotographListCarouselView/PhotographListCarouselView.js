@@ -17,14 +17,9 @@ const PhotographListCarouselView = (input) => {
   React.useEffect(() => {
     appManagerId = input.manager.registerListener((changed) => {
       let changedSet = new Set(changed);
-      // console.log("listening to change...");
       if (changedSet.has("startIndex") || changedSet.has("filter")) {
-        //console.log("in the if statement");
-        //console.log(input.manager.getStartIndex());
-
         if (input.manager.getStartIndex() === 0)
           carouselMiddleRef.current.scrollLeft = 0;
-        //console.log(carouselMiddleRef.current.scrollLeft);
         setStartIndex(input.manager.getStartIndex());
       }
     });
@@ -38,6 +33,12 @@ const PhotographListCarouselView = (input) => {
     // how many will be visible?
     let lastIndex = startIndex + numVisible;
     return index >= startIndex && index < lastIndex;
+  };
+
+  const determineIsMiddle = (index) => {
+    // (numVisible === 3 && index === startIndex + 1) || numVisible === 1;
+    if (input.data.length < numVisible) return index === 0;
+    return (numVisible === 3 && index === startIndex + 1) || numVisible === 1;
   };
 
   const computeWidth = (i) => {
@@ -84,10 +85,7 @@ const PhotographListCarouselView = (input) => {
         <div className="slides" ref={carouselMiddleRef}>
           {input.data.map((node, i) => {
             const photograph = node;
-            let isMiddle =
-              (numVisible === 3 && i === startIndex + 1) || numVisible === 1;
-            // console.log("isMiddle?");
-            // console.log(isMiddle);
+            let isMiddle = determineIsMiddle(i);
             return (
               <Slide
                 manager={input.manager}

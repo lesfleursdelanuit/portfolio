@@ -46,12 +46,13 @@ $border-radius: 30px;
     }
     .photograph {
       img {
-        opacity: 0.8;
-        filter: grayscale(0);
+        opacity: 0.7;
+        filter: grayscale(1);
         height: $pane-height;
 
         &:hover {
           opacity: 1 !important;
+          filter: grayscale(1) !important;
           transition: filter 1s ease, opacity 1s ease;
           cursor: pointer;
         }
