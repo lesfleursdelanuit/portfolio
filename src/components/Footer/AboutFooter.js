@@ -8,7 +8,7 @@ const AboutFooter = (input) => {
   return (
     <div className="about-footer">
       <ul>
-        <li>PAGES</li>
+        <li>SECTIONS</li>
         <li>
           <span className="icon heart">
             <FontAwesomeIcon icon={faHeart} />

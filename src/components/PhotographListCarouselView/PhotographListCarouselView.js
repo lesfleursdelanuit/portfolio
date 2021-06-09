@@ -28,11 +28,19 @@ const PhotographListCarouselView = (input) => {
   };
 
   const getVisibleList = () => {
-    if (numVisisble === 3) {
+    if (numVisisble === 3 && input.data.length >= 3) {
       const numLeft = input.data.length - startIndex;
       if (numLeft >= 3) return [startIndex, startIndex + 1, startIndex + 2];
       if (numLeft === 1) return [startIndex, 0, 1];
       return [startIndex, startIndex + 1, 0];
+    } else if (input.data.length < 3) {
+      let indicies = [];
+      for (let i = 0; i < input.data.length; i++) indicies.push(i);
+
+      const numLeft = input.data.length - 3;
+      for (let i = 0; i < numLeft; i++) indicies.push(i);
+
+      return indicies;
     }
 
     return [startIndex];

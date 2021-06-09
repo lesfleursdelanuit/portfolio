@@ -19,14 +19,12 @@ const IndexPage = ({ data }) => {
     });
   });
 
-  //console.log(lookupTable);
-
-  // console.log(data);
   const handleViewChange = (view) => {
     setWhichView(view);
   };
 
   const filteredData = () => {
+    if (whichFilter === "all") return data.allDatoCmsPhotograph.nodes;
     return data.allDatoCmsPhotograph.nodes.filter((node) => {
       let t = node[whichFilterType];
       for (let i = 0; i < t.length; i++)
@@ -65,13 +63,15 @@ const IndexPage = ({ data }) => {
   };
 
   const handleFilterChange = (input) => {
-    console.log("We are going to change the filter");
-    const name = lookupTable[input.id].name;
-    const filterType = input.type;
-    setWhichFilter(name);
-    setWhichFilterType(filterType);
-    //console.log(name);
-    //console.log(filterType);
+    if (input.type !== "all") {
+      const name = lookupTable[input.id].name;
+      const filterType = input.type;
+      setWhichFilter(name);
+      setWhichFilterType(filterType);
+    } else {
+      setWhichFilter("all");
+      setWhichFilterType("all");
+    }
   };
 
   return (
@@ -91,52 +91,6 @@ const IndexPage = ({ data }) => {
     </div>
   );
 };
-
-/*export const query = graphql`
-  {
-    allDatoCmsPhotograph(
-      filter: { tags: { elemMatch: { name: { eq: "favorite" } } } }
-    ) {
-      nodes {
-        id
-        image {
-          gatsbyImageData
-          url
-          path
-          filename
-          colors {
-            alpha
-            blue
-            green
-            hex
-            red
-            rgb
-          }
-          resolutions {
-            srcSet
-            src
-          }
-          smartTags
-        }
-        order
-        tags {
-          name
-          id
-        }
-        colors {
-          name
-          id
-        }
-        locations {
-          id
-          name
-        }
-      }
-    }
-  }
-`;*/
-
-//export const query = graphql`
 
 export const query = graphql`
   {

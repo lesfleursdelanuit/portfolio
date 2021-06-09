@@ -37,7 +37,11 @@ const GalleryFooter = (input) => {
               onFilterChange={input.onFilterChange}
             />
           </li>
-          <li>
+          <li
+            onClick={() => {
+              input.onFilterChange({ type: "all", id: null });
+            }}
+          >
             <span className="icon">
               <FontAwesomeIcon icon={faStar} />
             </span>

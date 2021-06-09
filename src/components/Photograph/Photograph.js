@@ -12,6 +12,7 @@ class Photograph extends React.Component {
 
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.determineUseModal = this.determineUseModal.bind(this);
   }
   makeProperties() {
     let props = [
@@ -43,7 +44,6 @@ class Photograph extends React.Component {
 
   handleCloseModal(e) {
     e.stopPropagation();
-    console.log("closing");
     this.setState((state, props) => {
       return { modalOpen: false };
     });
@@ -51,10 +51,25 @@ class Photograph extends React.Component {
 
   handleOpenModal(e) {
     e.target.blur();
-    console.log("opening");
     this.setState((state, props) => {
       return { modalOpen: true };
     });
+  }
+
+  determineUseModal() {
+    if (this.props.disableModal !== undefined && this.props.disableModal)
+      return null;
+    return (
+      <Modal
+        open={this.state.modalOpen}
+        onClose={this.handleCloseModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        className="modal-image"
+      >
+        <img src={this.props.image.gatsbyImageData.images.fallback.src} />
+      </Modal>
+    );
   }
 
   render() {
@@ -64,16 +79,7 @@ class Photograph extends React.Component {
           <img src={this.props.image.gatsbyImageData.images.fallback.src} />
         </div>
         {this.makeProperties(this.props.showProperties)}
-
-        <Modal
-          open={this.state.modalOpen}
-          onClose={this.handleCloseModal}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          className="modal-image"
-        >
-          <img src={this.props.image.gatsbyImageData.images.fallback.src} />
-        </Modal>
+        {this.determineUseModal()}
       </div>
     );
   }
