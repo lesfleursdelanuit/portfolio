@@ -52,7 +52,7 @@ $border-radius: 30px;
 
         &:hover {
           opacity: 1 !important;
-          filter: grayscale(1) !important;
+          filter: grayscale(0) !important;
           transition: filter 1s ease, opacity 1s ease;
           cursor: pointer;
         }

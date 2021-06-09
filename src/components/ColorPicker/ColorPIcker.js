@@ -6,11 +6,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./ColorPicker.scss";
 
 // markup
+const ColorSample = (input) => {
+  return (
+    <span
+      style={{
+        width: "15px",
+        height: "15px",
+        border: "1px solid grey",
+        "background-color": input.hex,
+        "margin-right": "10px",
+      }}
+    ></span>
+  );
+};
 const ColorPicker = (input) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const options = input.colors.nodes.sort((a, b) => {
-    return a.name < b.name;
+    return a.name > b.name;
   });
   const ITEM_HEIGHT = 48;
 
@@ -23,7 +36,6 @@ const ColorPicker = (input) => {
   const handleMenuItemClick = (e) => {
     handleClose();
     let data = { id: e.target.dataset.id, type: "colors" };
-    // input.onFilterChange(data);
     input.manager.handleFilterChange(data);
   };
 
@@ -63,15 +75,7 @@ const ColorPicker = (input) => {
             data-v={option.value}
             data-id={option.id}
           >
-            <span
-              style={{
-                width: "15px",
-                height: "15px",
-                border: "1px solid grey",
-                "background-color": option.hexcode.hex,
-                "margin-right": "10px",
-              }}
-            ></span>
+            <ColorSample hex={option.hexcode.hex} />
             {option.name}
           </MenuItem>
         ))}

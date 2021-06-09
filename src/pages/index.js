@@ -40,10 +40,6 @@ const IndexPage = ({ data }) => {
     };
   });
 
-  /* const handleViewChange = (view) => {
-    setWhichView(view);
-  };*/
-
   const filteredData = () => {
     if (whichFilter === "all") return data.allDatoCmsPhotograph.nodes;
     return data.allDatoCmsPhotograph.nodes.filter((node) => {
@@ -71,7 +67,6 @@ const IndexPage = ({ data }) => {
           view={whichView}
           filter={whichFilter}
           manager={appManager}
-          //   onViewChange={handleViewChange}
         />
       );
     return (
@@ -80,22 +75,9 @@ const IndexPage = ({ data }) => {
         view={whichView}
         filter={whichFilter}
         manager={appManager}
-        //  onViewChange={handleViewChange}
       />
     );
   };
-
-  /*const handleFilterChange = (input) => {
-    if (input.type !== "all") {
-      const name = appManager.lookupTable[input.id].name;
-      const filterType = input.type;
-      setWhichFilter(name);
-      setWhichFilterType(filterType);
-    } else {
-      setWhichFilter("all");
-      setWhichFilterType("all");
-    }
-  };*/
 
   return (
     <div>
@@ -108,7 +90,6 @@ const IndexPage = ({ data }) => {
         tags={data.allDatoCmsTag}
         whichFilter={whichFilter}
         whichFilterType={whichFilterType}
-        //  onFilterChange={handleFilterChange}
         manager={appManager}
         selectedPage="gallery"
       />

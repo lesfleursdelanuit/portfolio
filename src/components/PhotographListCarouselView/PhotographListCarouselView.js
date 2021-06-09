@@ -6,10 +6,13 @@ import "./PhotographListCarouselView.scss";
 
 // markup
 const PhotographListCarouselView = (input) => {
+  input.manager.numLeft = input.data.length;
+  input.manager.setDataLength(input.data.length, 3);
   const [startIndex, setStartIndex] = React.useState(
     input.manager.getStartIndex()
   );
   const [numVisible, setNumVisible] = React.useState(3);
+  const [current, setCurrent] = React.useState(input.manager.getCurrent());
   const carouselMiddleRef = React.useRef(null);
   const carouselViewRef = React.useRef(null);
   let appManagerId = null;
@@ -17,28 +20,32 @@ const PhotographListCarouselView = (input) => {
   React.useEffect(() => {
     appManagerId = input.manager.registerListener((changed) => {
       let changedSet = new Set(changed);
-      if (changedSet.has("startIndex") || changedSet.has("filter")) {
+      if (
+        changedSet.has("startIndex") ||
+        changedSet.has("filter") ||
+        changedSet.has("numLeft") ||
+        changedSet.has("current")
+      ) {
         if (input.manager.getStartIndex() === 0)
           carouselMiddleRef.current.scrollLeft = 0;
         setStartIndex(input.manager.getStartIndex());
+        setCurrent(input.manager.getCurrent());
       }
     });
 
     return () => {
       input.manager.unregisterListener(appManagerId);
     };
-  }, startIndex);
+  });
 
   const isVisible = (index) => {
-    // how many will be visible?
     let lastIndex = startIndex + numVisible;
     return index >= startIndex && index < lastIndex;
   };
 
   const determineIsMiddle = (index) => {
-    // (numVisible === 3 && index === startIndex + 1) || numVisible === 1;
-    if (input.data.length < numVisible) return index === 0;
-    return (numVisible === 3 && index === startIndex + 1) || numVisible === 1;
+    if (input.data.length < numVisible) return true;
+    return index === current;
   };
 
   const computeWidth = (i) => {
@@ -53,20 +60,27 @@ const PhotographListCarouselView = (input) => {
 
   const moveLeft = () => {
     let newStartIndex = startIndex - 1;
-    if (newStartIndex >= 0) {
-      carouselMiddleRef.current.scrollLeft -= computeWidth(newStartIndex);
-      input.manager.handleStartIndexChange(newStartIndex);
-      console.log(input.manager.startIndex);
+    let newCurrent = current - 1;
+    if (newCurrent >= 0) {
+      if (newStartIndex >= 0) {
+        carouselMiddleRef.current.scrollLeft -= computeWidth(newStartIndex);
+        input.manager.handleStartIndexChange(newStartIndex);
+      }
+      input.manager.handleSetCurrent(newCurrent);
     }
   };
 
   const moveRight = () => {
     let newStartIndex = startIndex + 1;
+    let newCurrent = current + 1;
     let numLeft = input.data.length - newStartIndex;
-    if (newStartIndex < input.data.length && numLeft >= numVisible) {
-      carouselMiddleRef.current.scrollLeft += computeWidth(newStartIndex);
-      input.manager.handleStartIndexChange(newStartIndex);
-      console.log(input.manager.startIndex);
+    if (newCurrent < input.data.length) {
+      if (numLeft >= numVisible) {
+        carouselMiddleRef.current.scrollLeft += computeWidth(newStartIndex);
+        input.manager.handleStartIndexChange(newStartIndex);
+      }
+
+      input.manager.handleSetCurrent(newCurrent);
     }
   };
 

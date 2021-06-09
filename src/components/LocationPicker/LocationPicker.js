@@ -10,7 +10,7 @@ const LocationPicker = (input) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const options = input.locations.nodes.sort((a, b) => {
-    return a.name < b.name;
+    return a.name > b.name;
   });
   const ITEM_HEIGHT = 48;
 
