@@ -3,6 +3,10 @@ import Slide from "./Slide.js";
 import Controller from "../Controller/Controller.js";
 import CarouselArrow from "../CarouselArrow/CarouselArrow.js";
 import "./PhotographListCarouselView.scss";
+import { css, cx } from "@emotion/react";
+
+const pane_width = "23";
+const margin = "1";
 
 // markup
 const PhotographListCarouselView = (input) => {
@@ -84,6 +88,11 @@ const PhotographListCarouselView = (input) => {
     }
   };
 
+  let num = input.data.length >= numVisible ? numVisible : input.data.length;
+  let totalPaneWidth = pane_width * num;
+  let totalMargins = input.data.length >= numVisible ? margin * 4 : margin * 2;
+  let totalNewWidth = totalMargins + totalPaneWidth;
+
   return (
     <div ref={carouselViewRef} className="carousel-view slide-in-right">
       <CarouselArrow manager={input.manager} dir="left" handleMove={moveLeft} />
@@ -96,7 +105,11 @@ const PhotographListCarouselView = (input) => {
             filter={input.filter}
           />
         </div>
-        <div className="slides" ref={carouselMiddleRef}>
+        <div
+          className="slides"
+          ref={carouselMiddleRef}
+          style={{ width: totalNewWidth + "vw" }}
+        >
           {input.data.map((node, i) => {
             const photograph = node;
             let isMiddle = determineIsMiddle(i);
