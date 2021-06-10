@@ -15,7 +15,6 @@ const Footer = (input) => {
           {...input}
           whichFilter={input.manager.getFilter()}
           whichFilterType={input.manager.getFilterType()}
-          // onFilterChange={input.onFilterChange}
           manager={input.manager}
         />
       );

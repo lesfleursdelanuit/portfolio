@@ -23,7 +23,6 @@ const LocationPicker = (input) => {
   const handleMenuItemClick = (e) => {
     handleClose();
     let data = { id: e.target.dataset.id, type: "locations" };
-    // input.onFilterChange(data);
     input.manager.handleFilterChange(data);
   };
   return (

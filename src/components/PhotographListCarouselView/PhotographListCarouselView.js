@@ -3,7 +3,7 @@ import Slide from "./Slide.js";
 import Controller from "../Controller/Controller.js";
 import CarouselArrow from "../CarouselArrow/CarouselArrow.js";
 import "./PhotographListCarouselView.scss";
-import { css, cx } from "@emotion/react";
+//import useWindowDimensions from "../../hooks/useWindowDimensions.js";
 
 const pane_width = "23";
 const margin = "1";
@@ -19,6 +19,10 @@ const PhotographListCarouselView = (input) => {
   const [current, setCurrent] = React.useState(input.manager.getCurrent());
   const carouselMiddleRef = React.useRef(null);
   const carouselViewRef = React.useRef(null);
+  const [carouselArrowLeftRef, carouselArrowRightRef] = [
+    React.useRef(null),
+    React.useRef(null),
+  ];
   let appManagerId = null;
 
   React.useEffect(() => {
@@ -36,6 +40,14 @@ const PhotographListCarouselView = (input) => {
         setCurrent(input.manager.getCurrent());
       }
     });
+
+    if (window !== undefined) {
+      const computedStyle = window.getComputedStyle(carouselMiddleRef.current);
+      const carouselWidth = parseFloat(computedStyle.width);
+      const viewportMiddlePos = parseFloat(window.innerWidth);
+      const total = (viewportMiddlePos - carouselWidth) / 4;
+      carouselViewRef.current.style.marginLeft = total + "px";
+    }
 
     return () => {
       input.manager.unregisterListener(appManagerId);
@@ -88,14 +100,27 @@ const PhotographListCarouselView = (input) => {
     }
   };
 
-  let num = input.data.length >= numVisible ? numVisible : input.data.length;
-  let totalPaneWidth = pane_width * num;
-  let totalMargins = input.data.length >= numVisible ? margin * 4 : margin * 2;
-  let totalNewWidth = totalMargins + totalPaneWidth;
+  const calcSlidePaneWidth = () => {
+    let num = input.data.length >= numVisible ? numVisible : input.data.length;
+    let totalPaneWidth = pane_width * num;
+    let totalMargins =
+      input.data.length >= numVisible ? margin * 4 : margin * 2;
+    let totalNewWidth = totalMargins + totalPaneWidth;
+    return totalNewWidth;
+  };
 
   return (
-    <div ref={carouselViewRef} className="carousel-view slide-in-right">
-      <CarouselArrow manager={input.manager} dir="left" handleMove={moveLeft} />
+    <div
+      ref={carouselViewRef}
+      className="carousel-view slide-in-right"
+      onAnimationEnd={() => {}}
+    >
+      <CarouselArrow
+        ref={carouselArrowLeftRef}
+        manager={input.manager}
+        dir="left"
+        handleMove={moveLeft}
+      />
       <div className="carousel-middle">
         <div>
           <Controller
@@ -108,7 +133,7 @@ const PhotographListCarouselView = (input) => {
         <div
           className="slides"
           ref={carouselMiddleRef}
-          style={{ width: totalNewWidth + "vw" }}
+          style={{ width: calcSlidePaneWidth() + "vw" }}
         >
           {input.data.map((node, i) => {
             const photograph = node;
@@ -126,6 +151,7 @@ const PhotographListCarouselView = (input) => {
       </div>
       <CarouselArrow
         manager={input.manager}
+        ref={carouselArrowRightRef}
         dir="right"
         handleMove={moveRight}
       />

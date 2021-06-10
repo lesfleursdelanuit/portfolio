@@ -41,3 +41,54 @@ nav {
     }
   }
 }
+.more-menu {
+  position: relative;
+  z-index: 9;
+  color: white;
+  opacity: 1;
+  text-align: right;
+  .more-menu-open-button {
+    opacity: 1;
+    transition: all 1s ease;
+  }
+  .hide {
+    opacity: 0 !important;
+    transition: all 1s ease;
+  }
+
+  .MuiPaper-root {
+    background-color: black;
+    color: white;
+    box-shadow: -5px 0px 56px -20px #7a7a7a;
+  }
+  svg {
+    color: #dbdbdb;
+  }
+  .more-menu-drawer {
+    color: white;
+    text-align: left;
+
+    svg {
+      color: #dbdbdb;
+      font-size: 15px;
+    }
+
+    .selectedPage {
+      font-weight: bolder;
+    }
+  }
+
+  .more-menu-item {
+    padding: 1em;
+    padding-right: 2em;
+  }
+
+  .more-menu-drawer-header {
+    background-color: rgb(32, 32, 32);
+    padding: 0.5em;
+  }
+
+  .MuiTypography-body1 {
+    font-family: "Julius Sans One" !important;
+  }
+}
